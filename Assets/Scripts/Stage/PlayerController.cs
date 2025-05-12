@@ -18,14 +18,19 @@ public class PlayerController : MonoBehaviour
     {
         startPosition = transform.position;
 
-        ballController = FindFirstObjectByType<BallController>();
-        gameManager = FindFirstObjectByType<GameManager>();
-        rigidBody = GetComponent<Rigidbody2D>();
+        RetrieveComponents();
     }
 
     void Update()
     {
         MoveHorizontally();   
+    }
+
+    private void RetrieveComponents()
+    {
+        ballController = FindFirstObjectByType<BallController>();
+        gameManager = FindFirstObjectByType<GameManager>();
+        rigidBody = GetComponent<Rigidbody2D>();
     }
 
     private void MoveHorizontally()
@@ -57,6 +62,8 @@ public class PlayerController : MonoBehaviour
         {
             ballController.Move();
             gameManager.RoundStarted = true;
+
+            if (!gameManager.GameStarted) gameManager.GameStarted = true;
         }
     }
 
